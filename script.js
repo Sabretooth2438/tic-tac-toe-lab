@@ -42,17 +42,6 @@ const updateMessage = () => {
   }
 }
 
-const handleClick = (event) => {
-  const squareIndex = event.target.id
-  if (
-    board[squareIndex] === 'X' ||
-    board[squareIndex] === 'O' ||
-    winner === true
-  ) {
-    return
-  }
-}
-
 const render = () => {
   updateBoard()
   updateMessage()
@@ -65,8 +54,60 @@ const init = () => {
   tie = false
   render()
 }
-// init()
 
+const placePiece = (index) => {
+  board[index] = turn
+}
+
+const checkForWinner = () => {
+  winningCombos.forEach((combo) => {
+    const [a, b, c] = combo
+    if (board[a] === board[b] && (board[b] === board[c]) & (board[a] !== '')) {
+      winner = true
+    }
+  })
+}
+
+const checkForTie = () => {
+  if (winner === true) {
+    return
+  }
+  if (board.includes('')) {
+    tie = false
+  } else {
+    tie = true
+  }
+}
+
+const switchPlayerTurn = () => {
+  if (winner === true) {
+    return
+  } else {
+    if (turn === 'X') {
+      turn = 'O'
+    } else {
+      turn = 'X'
+    }
+  }
+}
+
+const handleClick = (event) => {
+  const squareIndex = event.target.id
+  if (
+    board[squareIndex] === 'X' ||
+    board[squareIndex] === 'O' ||
+    winner === true
+  ) {
+    return
+  }
+  placePiece(squareIndex)
+  checkForWinner()
+  checkForTie()
+  switchPlayerTurn()
+  render()
+}
+
+init()
 /*----------------------------- Event Listeners -----------------------------*/
 /*//6b1
 squareEls.forEach((square) => {
