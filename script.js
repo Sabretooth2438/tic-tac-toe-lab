@@ -20,6 +20,7 @@ let tie
 const squareEls = document.querySelectorAll('.sqr')
 const boardEl = document.querySelector('.board')
 const messageEl = document.querySelector('#message')
+const resetBtnEl = document.querySelector('#reset')
 /*-------------------------------- Functions --------------------------------*/
 const updateBoard = () => {
   /*for (let index = 0; index < board.length; index++) {
@@ -36,7 +37,7 @@ const updateMessage = () => {
   if (winner === false && tie === false) {
     messageEl.textContent = `Player ${turn}, it's your turn!`
   } else if (winner === false && tie === true) {
-    messageEl.textContent = 'It’s a tie!'
+    messageEl.textContent = 'It’s a Tie!'
   } else {
     messageEl.textContent = `Congratulations, Player ${turn}! You've won the game! 🎉`
   }
@@ -119,4 +120,7 @@ boardEl.addEventListener('click', (event) => {
   if (event.target.matches('.sqr')) {
     handleClick(event)
   }
+})
+resetBtnEl.addEventListener('click', (event) => {
+  init()
 })
