@@ -34,12 +34,12 @@ const updateBoard = () => {
 }
 
 const updateMessage = () => {
-  if (winner === false && tie === false) {
-    messageEl.textContent = `Player ${turn}, it's your turn!`
-  } else if (winner === false && tie === true) {
-    messageEl.textContent = 'It’s a Tie!'
+  if (!winner && !tie) {
+    messageEl.textContent = `Player ${turn}'s turn`
+  } else if (tie) {
+    messageEl.textContent = 'Tie game!'
   } else {
-    messageEl.textContent = `Congratulations, Player ${turn}! You've won the game! 🎉`
+    messageEl.textContent = `Player ${turn} wins! 🎉`
   }
 }
 
@@ -50,7 +50,14 @@ const render = () => {
 
 const init = () => {
   board = ['', '', '', '', '', '', '', '', '']
-  turn = 'X'
+  //turn = 'X'
+  //Replaced (turn='X') with this so it can alternate
+  if (turn === 'X') {
+    turn = 'O'
+  } else {
+    turn = 'X'
+  }
+
   winner = false
   tie = false
   render()
