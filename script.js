@@ -18,6 +18,7 @@ let winner
 let tie
 /*------------------------ Cached Element References ------------------------*/
 const squareEls = document.querySelectorAll('.sqr')
+const boardEl = document.querySelector('.board')
 const messageEl = document.querySelector('#message')
 /*-------------------------------- Functions --------------------------------*/
 const updateBoard = () => {
@@ -41,6 +42,17 @@ const updateMessage = () => {
   }
 }
 
+const handleClick = (event) => {
+  const squareIndex = event.target.id
+  if (
+    board[squareIndex] === 'X' ||
+    board[squareIndex] === 'O' ||
+    winner === true
+  ) {
+    return
+  }
+}
+
 const render = () => {
   updateBoard()
   updateMessage()
@@ -56,3 +68,14 @@ const init = () => {
 // init()
 
 /*----------------------------- Event Listeners -----------------------------*/
+/*//6b1
+squareEls.forEach((square) => {
+  square.addEventListener('click', handleClick);
+});*/
+
+//6b2
+boardEl.addEventListener('click', (event) => {
+  if (event.target.matches('.sqr')) {
+    handleClick(event)
+  }
+})
